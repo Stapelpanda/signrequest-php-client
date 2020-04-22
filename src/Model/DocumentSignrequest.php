@@ -394,6 +394,13 @@ class DocumentSignrequest implements ModelInterface, ArrayAccess
      */
     public function setFromEmail($from_email)
     {
+        if (!is_null($from_email) && (mb_strlen($from_email) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $from_email when calling DocumentSignrequest., must be smaller than or equal to 255.');
+        }
+        if (!is_null($from_email) && (mb_strlen($from_email) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $from_email when calling DocumentSignrequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['from_email'] = $from_email;
 
         return $this;
@@ -418,9 +425,8 @@ class DocumentSignrequest implements ModelInterface, ArrayAccess
      */
     public function setFromEmailName($from_email_name)
     {
-
-        if (!is_null($from_email_name) && (mb_strlen($from_email_name) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $from_email_name when calling DocumentSignrequest., must be bigger than or equal to 1.');
+        if (!is_null($from_email_name) && (mb_strlen($from_email_name) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $from_email_name when calling DocumentSignrequest., must be smaller than or equal to 255.');
         }
 
         $this->container['from_email_name'] = $from_email_name;
@@ -529,9 +535,8 @@ class DocumentSignrequest implements ModelInterface, ArrayAccess
      */
     public function setRedirectUrlDeclined($redirect_url_declined)
     {
-
-        if (!is_null($redirect_url_declined) && (mb_strlen($redirect_url_declined) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $redirect_url_declined when calling DocumentSignrequest., must be bigger than or equal to 1.');
+        if (!is_null($redirect_url_declined) && (mb_strlen($redirect_url_declined) > 2100)) {
+            throw new \InvalidArgumentException('invalid length for $redirect_url_declined when calling DocumentSignrequest., must be smaller than or equal to 2100.');
         }
 
         $this->container['redirect_url_declined'] = $redirect_url_declined;
@@ -774,9 +779,8 @@ class DocumentSignrequest implements ModelInterface, ArrayAccess
      */
     public function setSubject($subject)
     {
-
-        if (!is_null($subject) && (mb_strlen($subject) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $subject when calling DocumentSignrequest., must be bigger than or equal to 1.');
+        if (!is_null($subject) && (mb_strlen($subject) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $subject when calling DocumentSignrequest., must be smaller than or equal to 512.');
         }
 
         $this->container['subject'] = $subject;
@@ -803,11 +807,6 @@ class DocumentSignrequest implements ModelInterface, ArrayAccess
      */
     public function setMessage($message)
     {
-
-        if (!is_null($message) && (mb_strlen($message) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $message when calling DocumentSignrequest., must be bigger than or equal to 1.');
-        }
-
         $this->container['message'] = $message;
 
         return $this;
